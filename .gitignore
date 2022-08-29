@@ -33,3 +33,6 @@
 
 build/
 *.pcd
+
+.vscode
+thirdparty/tbb2018_20170726oss
