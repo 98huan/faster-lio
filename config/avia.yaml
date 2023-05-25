@@ -1,11 +1,12 @@
 common:
   lid_topic: "/livox/lidar"
-  imu_topic: "/handsfree/imu"
+  imu_topic: "/livox/imu"
+  # imu_topic: "/imu_correct"
   time_sync_en: false         # ONLY turn on when external time synchronization is really not possible
 
 preprocess:
   lidar_type: 1                # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR, 3 for ouster LiDAR,
-  scan_line: 6
+  scan_line: 4  # mid360
   blind: 4
   time_scale: 1e-3
 
@@ -14,16 +15,20 @@ mapping:
   gyr_cov: 0.1
   b_acc_cov: 0.0001
   b_gyr_cov: 0.0001
-  fov_degree: 90
-  det_range: 450.0
+  # fov_degree: 70  # mid70
+  # det_range: 200.0
+  fov_degree: 360   # mid360
+  det_range: 70.0
+
   extrinsic_est_en: false      # true: enable the online estimation of IMU-LiDAR extrinsic
-  extrinsic_T: [ 0.04165, 0.02326, -0.0284 ]
+  # 外参惯导到激光  坐标原点在惯导(官方github：The extrinsic parameters in FAST-LIO is defined as the LiDAR's pose (position and rotation matrix) in IMU body frame (i.e. the IMU is the base frame). They can be found in the official manual.)
+  extrinsic_T: [ -0.011, -0.02329, 0.04412 ]  # midi360
   extrinsic_R: [ 1, 0, 0,
                  0, 1, 0,
                  0, 0, 1 ]
 
 publish:
-  path_publish_en: false
+  path_publish_en: true
   scan_publish_en: true       # false: close all the point cloud output
   scan_effect_pub_en: true    # true: publish the pointscloud of effect point
   dense_publish_en: false       # false: low down the points number in a global-frame point clouds scan.

@@ -46,7 +46,7 @@ catkin_package(
 
 
 find_package(Eigen3 REQUIRED)
-find_package(PCL 1.8 REQUIRED)
+find_package(PCL 1.10 REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
 include_directories(
